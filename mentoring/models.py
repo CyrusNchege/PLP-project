@@ -5,7 +5,7 @@ class student (models.Model):
     studentname= models.CharField(max_length=250)
     studentage=models.CharField(max_length=100)
     department=models.CharField(max_length=250)
-    studentmajor=models.CharField(max_length=100, default='undeclared')
+    studentmajor=models.CharField(max_length=100)
     campus=models.CharField(max_length=100, null=True)
 
 
