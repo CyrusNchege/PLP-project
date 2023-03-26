@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'mentee',
     'mentor',
-    'accounts'
+    'accounts',
+    'shop'
 ]
 
 MIDDLEWARE = [
