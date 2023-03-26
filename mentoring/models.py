@@ -1,13 +1,14 @@
 from django.db import models
 
 # Create your models here.
-class student (models.Model):
-    studentname= models.CharField(max_length=250)
-    studentage=models.CharField(max_length=100)
-    department=models.CharField(max_length=250)
-    studentmajor=models.CharField(max_length=100)
-    campus=models.CharField(max_length=100, null=True)
+class Mentee(models.Model):
+    menteename = models.CharField(max_length=250)
+    menteeage = models.CharField(max_length=100)
+    bio = models.TextField(max_length=500, blank=True)
+    interests = models.CharField(max_length=200, blank=True)
+    campus = models.CharField(max_length=100, blank=True)
 
+    def __str__(self):
+        return self.menteename
 
-def __str__(self):
-    return self.title
+  

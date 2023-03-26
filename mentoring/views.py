@@ -1,13 +1,14 @@
 from django.shortcuts import render
-from .models import student
+from .models import Mentee
 
 
 
 # Create your views here.
 def home(request):
-    students = student.objects.all()
-    context = {'students' : students}
-    return render(request, "mentoring/home.html", context)
+    
+    return render(request, "mentoring/home.html")
 
-def find_a_mentor(request):
-    return render(request, "mentoring/mentee.html")
+def mentee(request):
+    mentees = Mentee.objects.all()
+    context = {'mentees' : mentees}
+    return render(request, "mentoring/mentee.html", context)
