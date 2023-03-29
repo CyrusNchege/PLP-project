@@ -2,8 +2,8 @@
 
 
 ## Description
-This is repo for a project developed for plp hackerthon group 21. 
-We tackled a solution to build a tech community where newbies can get mentors.
+This is repo for my PLP project 
+I tackled a solution to build a tech community where newbies can get mentors and help.
 
 ## Installation
 ```
