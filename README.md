@@ -20,7 +20,7 @@ Activate environment `source env/bin/activate`
 ```
 pip install -r requirements.txt
 ```
-meke migrations
+make migrations
 ```
 python manage.py makemigrations
 python manage.py migrate
