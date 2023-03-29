@@ -1,10 +1,6 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import login, authenticate
-from .forms import UserRegistrationForm
 
 
-def home(request):
-    return render (request, 'accounts/login.html')
 # def login_view(request):
 #     if request.method == 'POST':
 #         # handle form submission

@@ -1,7 +1,9 @@
 from django.db import models
 
+
 # Create your models here.
 class Mentee(models.Model):
+    
     menteename = models.CharField(max_length=250)
     menteeage = models.CharField(max_length=100)
     bio = models.TextField(max_length=500, blank=True)
