@@ -1,6 +1,10 @@
 from django.shortcuts import render, redirect
 
+def home(request):
+    return render(request, 'home.html')
 
+def loginpage(request):
+    return render(request, 'accounts/login.html')
 # def login_view(request):
 #     if request.method == 'POST':
 #         # handle form submission
