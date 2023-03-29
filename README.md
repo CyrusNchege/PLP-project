@@ -29,7 +29,7 @@ python manage.py migrate
 ```
 python manage.py runserver
 ```
-![HOMEPAGE Image](static/images/plp community project.png)
+![HOMEPAGE Image](./static/images/homepage.png)
 
 
 
