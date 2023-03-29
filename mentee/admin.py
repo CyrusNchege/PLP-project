@@ -4,4 +4,4 @@ from .models import Mentee
 # Register your models here.
 @admin.register(Mentee) 
 class  postAdmin(admin.ModelAdmin):
-    list_display = ['menteename', 'menteeage', 'campus']
+    list_display = ['name']
