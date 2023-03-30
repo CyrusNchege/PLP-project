@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
 from django.contrib import messages
+from mentor.models import Mentor
+from mentee.models import Mentee
 
 def loginpage(request):
     if request.method == 'POST':
@@ -16,6 +18,10 @@ def loginpage(request):
         if user is not None:
             login(request, user)
             return redirect('mentee')
+            # if user.is_mentor:
+            #     return redirect('mentor')
+            # elif user.is_mentee:
+            #     return redirect('mentee')
         else:
             messages.success(request, 'Invalid username or password')
     return render(request, 'accounts/login.html')

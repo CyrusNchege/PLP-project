@@ -5,7 +5,7 @@ from .models import Mentee
 
 def mentee(request):
     
-    return render(request, "home.html")
+    return render(request, "mentee/mentee.html")
 
 # def mentee(request):
 #     mentees = Mentee.objects.all()
