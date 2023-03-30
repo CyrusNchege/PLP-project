@@ -6,14 +6,13 @@
 #body{
     padding: 30px; 
     background-color: rgb(194, 189, 189);
-    height: 500px;
+    
     
 }
 .landing{
     padding: 40px;
     justify-content: center;
     align-items: center;
-    height: 350px;
     margin: 0 auto;
     text-align: center;
     
