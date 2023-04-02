@@ -6,6 +6,7 @@
 #body{
     padding: 30px; 
     background-color: rgb(194, 189, 189);
+    height: 80vh;
     
     
 }
@@ -15,6 +16,7 @@
     align-items: center;
     margin: 0 auto;
     text-align: center;
+    height: auto;
     
 }
 

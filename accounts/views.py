@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from mentor.models import Mentor
-from mentee.models import Mentee
+from .models import User
 
 def loginpage(request):
     if request.method == 'POST':
@@ -17,14 +17,29 @@ def loginpage(request):
 
         if user is not None:
             login(request, user)
-            return redirect('mentee')
-            # if user.is_mentor:
-            #     return redirect('mentor')
-            # elif user.is_mentee:
-            #     return redirect('mentee')
+            # return redirect('mentee')
+            if user.is_mentor:
+                return redirect('mentor')
+            elif user.is_mentee:
+                return redirect('mentee')
         else:
             messages.success(request, 'Invalid username or password')
     return render(request, 'accounts/login.html')
+
+
+
+# @login_required(login_url='/accounts/login/')
+# def mentor_dashboard(request):
+#     return render(request, 'accounts/mentor_dashboard.html')
+
+# @login_required(login_url='/accounts/login/')
+# def mentee_dashboard(request):
+#     return render(request, 'accounts/mentee_dashboard.html')
+
+
+
+
+
 # def login_view(request):
 #     if request.method == 'POST':
 #         # handle form submission
