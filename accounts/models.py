@@ -8,8 +8,17 @@ class User(AbstractUser):
 
 
 
-class Mentee(User):
+class Mentee(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, )
+    career_goal = models.CharField(max_length=255)
+    
+    def __str__(self):
+    	return self.user.username
+
+
+class Mentor(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     career_goal = models.CharField(max_length=255)
 
-class Mentor(User):
-    career_goal = models.CharField(max_length=255)
+    def __str__(self):
+    	return self.user.username
