@@ -1,30 +1,33 @@
 from django.shortcuts import render, redirect
+from django.http import HttpResponse
 from django.contrib.auth import login, logout, authenticate
-from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from django.contrib import messages
-from .models import User
+from .forms import LoginForm
 
+from django.contrib import messages
+
+ 
 def loginpage(request):
     if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        try:
-            user = User.objects.get(username=username)
-        except:
-            print('Username does not exist')
-        user = authenticate(request, username=username, password=password)
-
-        if user is not None:
-            login(request, user)
-            # return redirect('mentee')
-            if user.is_mentor:
-                return redirect('mentor')
-            elif user.is_mentee:
-                return redirect('mentee')
-        else:
-            messages.success(request, 'Invalid username or password')
-    return render(request, 'accounts/login.html')
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            user = authenticate (request, 
+                                 username = cd['username'], 
+                                 password = cd['password'])
+            
+            if user is not None:
+                if user.is_active:
+                    login(request, user)
+                    messages.success(request, 'You have been logged in.')
+                    return redirect ('mentee')
+                else:
+                    messages.error(request, 'Your account is not active.')
+            else:
+                messages.error(request, 'Invalid login credentials.')
+    else:
+        form = LoginForm()    
+    return render(request, 'accounts/login.html', {'form': form})
 
 
 
@@ -39,6 +42,24 @@ def loginpage(request):
 
 
 
+# if request.method == 'POST':
+#         username = request.POST.get('username')
+#         password = request.POST.get('password')
+#         try:
+#             user = User.objects.get(username=username)
+#         except:
+#             print('Username does not exist')
+#         user = authenticate(request, username=username, password=password)
+
+#         if user is not None:
+#             login(request, user)
+#             # return redirect('mentee')
+#             if user.is_mentor:
+#                 return redirect('mentor')
+#             elif user.is_mentee:
+#                 return redirect('mentee')
+#         else:
+#             messages.success(request, 'Invalid username or password')
 
 # def login_view(request):
 #     if request.method == 'POST':

@@ -8,8 +8,8 @@ class User(AbstractUser):
 
 
 
-class Mentee(User):
-    career_goal = models.CharField(max_length=255)
+# class Mentee(User):
+#     career_goal = models.CharField(max_length=255)
 
-class Mentor(User):
-    career_goal = models.CharField(max_length=255)
+# class Mentor(User):
+#     career_goal = models.CharField(max_length=255)
