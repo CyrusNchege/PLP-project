@@ -8,15 +8,7 @@ from django.contrib import messages
 
  
 
-def register(request):
-    if request.method == 'POST':
-        form = UserCreation(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('login')
-    else:
-        form = UserCreation()
-    return render(request, 'accounts/register.html', {'form': form})
+
 
 
 def loginpage(request):
@@ -42,6 +34,15 @@ def loginpage(request):
     return render(request, 'accounts/login.html', {'form': form})
 
 
+def register(request):
+    if request.method == 'POST':
+        form = UserCreation(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('login')
+    else:
+        form = UserCreation()
+    return render(request, 'accounts/register.html', {'form': form})
 
 # @login_required(login_url='/accounts/login/')
 # def mentor_dashboard(request):
