@@ -21,8 +21,7 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('admin/', admin.site.urls),
     path('shop/', include('shop.urls')),
-    path('/', include('accounts.urls')),
-    path('register/', include('accounts.urls')),
+    path('', include('accounts.urls')),
     path('mentee/', include('mentee.urls')),
     path('mentor/', include('mentor.urls')),
 ]

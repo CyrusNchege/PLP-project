@@ -10,8 +10,7 @@ class CustomUser(AbstractUser):
         (MENTOR, 'Mentor'),
     ]
 
-    is_mentee = models.BooleanField('is mentee', default=False)
-    is_mentor = models.BooleanField('is mentor', default=False)
+
     role = models.CharField(max_length=6, choices=ROLE_CHOICES, default=MENTEE)
 
 

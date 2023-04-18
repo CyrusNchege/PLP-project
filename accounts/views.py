@@ -9,30 +9,25 @@ from django.contrib import messages
  
 
 
-
-
 def loginpage(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
             cd = form.cleaned_data
-            user = authenticate (request, 
-                                 username = cd['username'], 
-                                 password = cd['password'])
-            
-            if user is not None:
-                if user.is_active:
-                    login(request, user)
-                    messages.success(request, 'You have been logged in.')
-                    return redirect ('mentee')
-                else:
-                    messages.error(request, 'Your account is not active.')
-            else:
+            user = authenticate(request, username=cd['username'], password=cd['password'])
+            if user is not None and user.is_active:
+                login(request, user)
+                if user.MENTEE:
+                    return redirect('mentee')
+                elif user.MENTOR:
+                    return redirect('mentor')
+            elif user is None:
                 messages.error(request, 'Invalid login credentials.')
+            else:
+                messages.error(request, 'Your account is not active.')
     else:
-        form = LoginForm()    
+        form = LoginForm()
     return render(request, 'accounts/login.html', {'form': form})
-
 
 def register(request):
     if request.method == 'POST':
