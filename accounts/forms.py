@@ -4,11 +4,28 @@ from .models import CustomUser
 
 
 class UserCreation(UserCreationForm):
-    role = forms.ChoiceField(choices=CustomUser.ROLE_CHOICES, required=True)
+    ROLE_CHOICES = [
+        ('mentee', 'Mentee'),
+        ('mentor', 'Mentor'),
+    ]
+
+    role = forms.ChoiceField(choices=ROLE_CHOICES)
+
     class Meta:
         model = CustomUser
-        fields = ['username', 'email', 'password1', 'password2', 'first_name', 'last_name','role']
+        fields = ['username', 'password1', 'password2', 'role']
 
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        role = self.cleaned_data['role']
+        if role == 'mentee':
+            user.is_mentee = True
+        elif role == 'mentor':
+            user.is_mentor = True
+        if commit:
+            user.save()
+        return user
+    
 class LoginForm(forms.Form):
     username = forms.CharField()
     password = forms.CharField(widget=forms.PasswordInput)

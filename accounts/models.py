@@ -3,20 +3,18 @@ from django.contrib.auth.models import AbstractUser
 # Create your models here.
 
 class CustomUser(AbstractUser):
-    MENTEE = 'mentee'
-    MENTOR = 'mentor'
-    ROLE_CHOICES = [
-        (MENTEE, 'Mentee'),
-        (MENTOR, 'Mentor'),
-    ]
+    is_mentee = models.BooleanField(default=False)
+    is_mentor = models.BooleanField(default=False)
+    def __str__(self):
+        return self.username
+    
 
+class Mentee(models.Model):
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, primary_key=True)
+    def __str__(self):
+        return self.user.username
 
-    role = models.CharField(max_length=6, choices=ROLE_CHOICES, default=MENTEE)
-
-
-
-# class Mentee(User):
-#     career_goal = models.CharField(max_length=255)
-
-# class Mentor(User):
-#     career_goal = models.CharField(max_length=255)
+class Mentor(models.Model):
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, primary_key=True)
+    def __str__(self):
+        return self.user.username

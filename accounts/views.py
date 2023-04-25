@@ -17,9 +17,9 @@ def loginpage(request):
             user = authenticate(request, username=cd['username'], password=cd['password'])
             if user is not None and user.is_active:
                 login(request, user)
-                if user.MENTEE:
+                if user.is_mentee:
                     return redirect('mentee')
-                elif user.MENTOR:
+                elif user.is_mentor:
                     return redirect('mentor')
             elif user is None:
                 messages.error(request, 'Invalid login credentials.')
@@ -39,67 +39,7 @@ def register(request):
         form = UserCreation()
     return render(request, 'accounts/register.html', {'form': form})
 
-# @login_required(login_url='/accounts/login/')
-# def mentor_dashboard(request):
-#     return render(request, 'accounts/mentor_dashboard.html')
+def logout_view(request):
+    logout(request)
+    return redirect('home')
 
-# @login_required(login_url='/accounts/login/')
-# def mentee_dashboard(request):
-#     return render(request, 'accounts/mentee_dashboard.html')
-
-
-
-
-# if request.method == 'POST':
-#         username = request.POST.get('username')
-#         password = request.POST.get('password')
-#         try:
-#             user = User.objects.get(username=username)
-#         except:
-#             print('Username does not exist')
-#         user = authenticate(request, username=username, password=password)
-
-#         if user is not None:
-#             login(request, user)
-#             # return redirect('mentee')
-#             if user.is_mentor:
-#                 return redirect('mentor')
-#             elif user.is_mentee:
-#                 return redirect('mentee')
-#         else:
-#             messages.success(request, 'Invalid username or password')
-
-# def login_view(request):
-#     if request.method == 'POST':
-#         # handle form submission
-#         username = request.POST.get('username')
-#         password = request.POST.get('password')
-#         user = authenticate(request, username=username, password=password)
-#         if user is not None:
-#             login(request, user)
-#             return redirect('accounts/login.html')
-#         else:
-#             # display error message
-#             return render(request, 'accounts/login.html', {'error': 'Invalid username or password'})
-#     else:
-#         # display login form
-#         return render(request, 'accounts/login.html')
-
-# def register_view(request):
-#     if request.method == 'POST':
-#         # handle form submission
-#         form = UserRegistrationForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             username = form.cleaned_data.get('username')
-#             password = form.cleaned_data.get('password1')
-#             user = authenticate(request, username=username, password=password)
-#             login(request, user)
-#             return redirect('home')
-#         else:
-#             # display error message
-#             return render(request, 'register.html', {'form': form})
-#     else:
-#         # display registration form
-#         form = UserRegistrationForm()
-#         return render(request, 'register.html', {'form': form})
