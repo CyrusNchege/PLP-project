@@ -1,2 +1,11 @@
-hello mentee
+{% extends 'mentee_mentor_base.html'%}
+
+
+{% block content%}
+{% if request.user.is_authenticated %}
+Hello {{ request.user.first_name|default:request.user.username }}
+
+{%endif%}
+
 <a href="{% url 'logout' %}"><button>logout</button></a>
+{%endblock%}

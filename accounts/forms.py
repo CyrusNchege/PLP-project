@@ -8,9 +8,9 @@ from django.contrib.auth import authenticate
 #user creation form
 class UserCreation(UserCreationForm):
     username = forms.CharField(max_length=30, )
+    email = forms.EmailField(max_length=254)
     password1 = forms.CharField(widget=forms.PasswordInput)
     password2 = forms.CharField(widget=forms.PasswordInput)
-    role = forms.CharField(max_length=30)
     ROLE_CHOICES = [
         ('mentee', 'Mentee'),
         ('mentor', 'Mentor'),
@@ -20,7 +20,7 @@ class UserCreation(UserCreationForm):
 
     class Meta:
         model = CustomUser
-        fields = ['username', 'password1', 'password2', 'role']
+        fields = ['username', 'email', 'password1', 'password2', 'role']
 
 
     def clean_password2(self):
@@ -35,7 +35,7 @@ class UserCreation(UserCreationForm):
         if len(password1) < 8:
             raise forms.ValidationError("Password must be at least 8 characters")
         
-        if password2.isdigit():
+        if password1 and password2.isdigit():
             raise forms.ValidationError("Password must contain at least one letter")
         
         #to check if password is too common
@@ -46,14 +46,20 @@ class UserCreation(UserCreationForm):
         #to check if password is too similar to other personal information
         user_inputs = [self.cleaned_data.get('username'), self.cleaned_data.get('first_name'), self.cleaned_data.get('last_name'), self.cleaned_data.get('email')]
         for user_input in user_inputs:
-            if user_input in password1:
+            if user_input and password1 in user_input:
                 raise forms.ValidationError("Your password cannot be too similar to your other personal information.")
         return password2
-
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if CustomUser.objects.filter(email=email).exists():
+            raise forms.ValidationError("Email already exists")
+        return email
     # save def clean_username
     def save(self, commit=True):
         user = super().save(commit=False)
         role = self.cleaned_data['role']
+        user.is_mentee = False
+        user.is_mentor = False
         if role == 'mentee':
             user.is_mentee = True
         elif role == 'mentor':
