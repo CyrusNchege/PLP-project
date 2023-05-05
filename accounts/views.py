@@ -2,8 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
-from .forms import LoginForm, UserCreation, PasswordResetForm
-
+from .forms import LoginForm, UserCreation
 # from django.contrib import messages
 
  
@@ -42,12 +41,3 @@ def logout_view(request):
     logout(request)
     return redirect('login')
 
-def password_reset(request):
-    if request.method == 'POST':
-        form = PasswordResetForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('login')
-    else:
-        form = PasswordResetForm()
-    return render(request, 'accounts/password_reset.html', {'form': form})
