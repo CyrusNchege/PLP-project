@@ -7,5 +7,5 @@ Hello {{ request.user.first_name|default:request.user.username }}
 
 {%endif%}
 
-<a href="{% url 'logout' %}"><button>logout</button></a>
+
 {%endblock%}
