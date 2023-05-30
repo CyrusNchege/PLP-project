@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'mentor',
     'accounts',
     'shop'
+    
 ]
 
 MIDDLEWARE = [

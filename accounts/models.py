@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.core.exceptions import ValidationError
 # Create your models here.
 
 class CustomUser(AbstractUser):
@@ -8,13 +9,8 @@ class CustomUser(AbstractUser):
     def __str__(self):
         return self.username
     
-
-class Mentee(models.Model):
-    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, primary_key=True)
-    def __str__(self):
-        return self.user.username
-
-class Mentor(models.Model):
-    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, primary_key=True)
-    def __str__(self):
-        return self.user.username
+    #to prevent user for being is_mentee and is_mentor at the same time
+    def save(self, *args, **kwargs):
+        if self.is_mentee and self.is_mentor:
+            raise ValidationError("User can't be both mentee and mentor")
+        super().save(*args, **kwargs)
