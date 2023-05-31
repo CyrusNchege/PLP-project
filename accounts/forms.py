@@ -54,6 +54,8 @@ class UserCreation(UserCreationForm):
         if CustomUser.objects.filter(email=email).exists():
             raise forms.ValidationError("Email already exists")
         return email
+    
+    
     # save def clean_username
     def save(self, commit=True):
         user = super().save(commit=False)
@@ -67,7 +69,12 @@ class UserCreation(UserCreationForm):
         if commit:
             user.save()
         return user
-    
+
+#user edit form
+class UserEditForm(forms.ModelForm):
+    class Meta:
+        model = CustomUser
+        fields = ['username', 'email']
 
 #login form
 class LoginForm(forms.Form):
