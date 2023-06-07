@@ -13,9 +13,19 @@ git clone https://github.com/CyrusNchege/PLP-project
 ```
 cd PLP-project
 ```
-Create a virtual environment using command `python3 -m venv env`
+### Create a virtual environment  and acticate environment
 
-Activate environment `source env/bin/activate`
+#### linux
+```
+ python3 -m venv env
+
+source env/bin/activate
+```
+#### windows
+```
+ python -m venv env
+
+.\env\Scripts\activate
 
 ```
 pip install -r requirements.txt
