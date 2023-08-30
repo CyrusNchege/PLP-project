@@ -28,6 +28,9 @@ source env/bin/activate
 .\env\Scripts\activate
 
 ```
+
+### Install requirements
+```
 pip install -r requirements.txt
 ```
 make migrations
@@ -35,11 +38,11 @@ make migrations
 python manage.py makemigrations
 python manage.py migrate
 ```
-** Runserver**
+### Run server
 ```
 python manage.py runserver
 ```
-![HOMEPAGE Image](./static/images/homepage.png)
+![HOMEPAGE Image](/static/images/homepage.png)
 
 
 
